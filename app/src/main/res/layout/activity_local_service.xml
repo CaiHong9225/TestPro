@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.domin.demo01.binder.LocalServiceActivity">
+
+
+
+    <Button
+        android:id="@+id/bangding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="绑定"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/jiebang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解绑"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/diaoyongfuwu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="调用服务"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tv_showmsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+
+        android:textColor="@color/colorPrimary"/>
+</LinearLayout>
+

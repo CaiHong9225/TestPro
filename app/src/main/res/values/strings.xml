@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">BiliBili</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
+    <string name="action_search">搜索</string>
+    <string name="action_nofication">notification</string>
+    <string name="item_01">item01</string>
+
+    <string name="item_02">item02</string>
+    <string name="test_str">TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="scale_down_show_behavior">com.domin.demo01.behavior.ScaleDownShowBehavior</string>
+    <string name="scale_up_show_behavior">com.domin.demo01.behavior.ScaleUpShowBehavior</string>
+    <string name="swipe_dismiss_behavior">android.support.design.widget.SwipeDismissBehavior</string>
+    <string name="define_behavior">com.domin.demo01.behavior.DefineBehavior</string>
+</resources>

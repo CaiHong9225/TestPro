@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.domin.demo01.jsbridge.JsActivity">
+   <include layout="@layout/custom_toolbar"/>
+
+<!--    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textinputlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginLeft="48dp"
+        android:layout_marginStart="48dp"
+        android:hint="请输入网址">
+        <EditText
+            android:id="@+id/edittext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:background="@color/colorAccent"
+        android:id="@+id/text_seach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="搜索"
+        android:textSize="21sp" />-->
+    <android.support.v7.widget.CardView
+
+        android:id="@+id/cardView_search"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="2dp"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:id="@+id/iv_search_back"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="12dp"
+                    android:tint="@color/colorAccent"
+                    android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:hint="请输入内容"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textCapWords"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="8dp"
+                    android:singleLine="true"/>
+
+                <ImageView
+                    android:id="@+id/clearSearch"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="12dp"
+                    android:tint="@color/colorAccent"
+                    android:src="@drawable/ic_crop_free_black_24dp"/>
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/search_layout"
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/white"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical"
+        android:id="@+id/content_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
