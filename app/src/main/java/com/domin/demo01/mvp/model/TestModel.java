@@ -7,6 +7,10 @@ import com.domin.demo01.mvp.basemvp.BaseModelCallBack;
 
 public class TestModel {
 
+    /**
+     * 数据访问接口
+     * @param baseModelCallBack
+     */
     public void getData(final BaseModelCallBack baseModelCallBack){
 
         baseModelCallBack.onResponse("succcess");
