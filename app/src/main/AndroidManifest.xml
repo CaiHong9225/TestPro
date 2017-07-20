@@ -60,7 +60,8 @@
             android:name=".widget.GangedRecyclerview.GrandRecylerViewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".bottomsheet.BottomSheetActivity"></activity>
+        <activity android:name=".bottomsheet.BottomSheetActivity" />
+        <activity android:name=".mvp.ui.TestActivity"></activity>
     </application>
 
 </manifest>

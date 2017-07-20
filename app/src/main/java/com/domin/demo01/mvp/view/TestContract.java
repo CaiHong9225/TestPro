@@ -10,7 +10,8 @@ public class TestContract {
 
     //mvp层的view层回调函数
     public interface View extends BaseView<Presenter>{
-        void updateUI();
+        void updateUI(String response);
+        void updateFail(Throwable t);
     }
 
     //mvp中的presenter层的回调函数
