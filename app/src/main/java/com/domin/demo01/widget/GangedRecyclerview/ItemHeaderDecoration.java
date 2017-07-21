@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -28,7 +29,7 @@ public class ItemHeaderDecoration extends RecyclerView.ItemDecoration {
     private LayoutInflater mInflater;
     private int mTitleHeight;
     private CheckListener mCheckListener;
-    private String currentTag = "0";
+    public static String currentTag = "0";
 
     void setCheckListener(CheckListener checkListener) {
         mCheckListener = checkListener;
@@ -50,7 +51,9 @@ public class ItemHeaderDecoration extends RecyclerView.ItemDecoration {
         this.mDatas = mDatas;
         return this;
     }
-
+    public static void setCurrentTag(String currentTag){
+        ItemHeaderDecoration.currentTag =currentTag;
+    }
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
@@ -116,13 +119,8 @@ public class ItemHeaderDecoration extends RecyclerView.ItemDecoration {
         if (flag)
             c.restore();//恢复画布到之前保存的状态
 
-        if (GrandRecylerViewActivity.left) {
-            GrandRecylerViewActivity.left = false;
-            return;
-        }
         //控制左侧recyclerview的滑动
-        if (!Objects.equals(tag, currentTag)) {
-            Log.d("tag---->", String.valueOf(GrandRecylerViewActivity.finalNumber));
+        if (!TextUtils.equals(tag, currentTag)) {
             currentTag = tag;
             Integer integer = Integer.valueOf(currentTag);
             mCheckListener.check(integer, false);

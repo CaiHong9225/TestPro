@@ -10,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.domin.demo01.R;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static android.R.transition.move;
 
 /**
  * 左右联动界面
@@ -24,8 +27,9 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
     private SortAdapter mSortAdapter;
     private SortDetailFragment mSortDetailFragment;
     private Context mContext;
-    public static boolean left;
-    public static int finalNumber = 0;
+    private int targetPosition ;
+    private boolean isMoved;
+    private LinearLayoutManager mLinearLayoutManager;
 
 
     @Override
@@ -49,6 +53,8 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
             @Override
             public void onItemClick(int id, int position) {
                 if (mSortDetailFragment != null) {
+                    isMoved=true;
+                    targetPosition=position;
                     setChecked(position, true);
                 }
             }
@@ -71,17 +77,27 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
      * @param isLeft
      */
     private void setChecked(int position, boolean isLeft) {
-        finalNumber = position;
-        left = isLeft;
-        Log.d("boolean---->", String.valueOf(left));
         mSortAdapter.setCheckedPosition(position);
         if (isLeft) {
             //向碎片中传值
+            mSortAdapter.setCheckedPosition(position);
             mSortDetailFragment.setData(position * 10 + position);
+        }else{
+            ItemHeaderDecoration.setCurrentTag(String.valueOf(targetPosition));
+            if(isMoved){
+                isMoved=false;
+            }else {
+                mSortAdapter.setCheckedPosition(position);
+            }
         }
-
+        moveToCenter(position);
     }
-
+    private void moveToCenter(int position)
+    {
+        View childAt =rvSort.getChildAt(position-mLinearLayoutManager.findFirstVisibleItemPosition());
+        int y = (childAt.getTop()-rvSort.getHeight()/2);
+        rvSort.smoothScrollBy(0,y);
+    }
 
     private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -89,8 +105,8 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rvSort = (RecyclerView) findViewById(R.id.rv_sort);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        rvSort.setLayoutManager(linearLayoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(mContext);
+        rvSort.setLayoutManager(mLinearLayoutManager);
         DividerItemDecoration decoration = new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL);
         rvSort.addItemDecoration(decoration);
 
