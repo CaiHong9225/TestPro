@@ -5,6 +5,7 @@
     <inspection_tool class="AndroidDomInspection" enabled="true" level="INFO" enabled_by_default="true">
       <scope name="ISTV Scopes" level="INFO" enabled="true" />
     </inspection_tool>
+    <inspection_tool class="AndroidLintEnforceUTF8" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintExtraTranslation" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintMissingTranslation" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="CheckStyle" enabled="false" level="WARNING" enabled_by_default="false" />

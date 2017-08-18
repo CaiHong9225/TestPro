@@ -21,10 +21,9 @@ import static com.chad.library.adapter.base.listener.SimpleClickListener.TAG;
  */
 public abstract class BaseFragment extends Fragment implements View.OnClickListener {
     private  final String TAG="BaseFragment";
-    private boolean isVisible = false;
-    private boolean isIniView =false;
-    private boolean isFirstLoad = true;
 
+    private boolean isViewCreated;
+    private boolean isLoadDataCompleted;
     public  View convertView ;
     private SparseArray<View> mViews;
     public abstract int getLayoutId();
@@ -45,34 +44,16 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //使用fragment的menu
         setHasOptionsMenu(true);
-    }
-
-    //懒加载
-    private void LazyLoad(){
-        //true   true（可见之后） true(createView)
-        if(!isFirstLoad||!isVisible||!isIniView){
-            //不是第一次加载 不可见 不是第一次初始化界面
-            Log.i(TAG,"懒加载");
-            return;
-        }
-        //load data
-        initListener();
-        initData();
-        //加载一次数据后false 首次进页面之后 true
-        isFirstLoad =false;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()){
-            isVisible =true;
-//            LazyLoad();
-        }else {
-            //设置为不可见
-            isVisible=false;
-            onInvisible();
+        if(isVisibleToUser&&isViewCreated&&!isLoadDataCompleted){
+            isLoadDataCompleted=true;
+            initData();
         }
     }
 
@@ -86,12 +67,12 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-    //    this.mActivity = (BaseActivity) activity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViews = new SparseArray<>();
+        isViewCreated =true;
         convertView = inflater.inflate(getLayoutId(),container,false);
         initViews(convertView,savedInstanceState);
         return convertView;
@@ -100,11 +81,11 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        isIniView = true;
-//        LazyLoad();
-        //load data
+        if(getUserVisibleHint()){
+            isLoadDataCompleted=true;
+            initData();
+        }
         initListener();
-        initData();
     }
 
     @Override

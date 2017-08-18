@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
-        <activity android:name=".drawerLayout.DrawerAndNaviActivity">
+        <activity android:name=".drawerLayout.ui.DrawerAndNaviActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +47,7 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".drawerLayout.DrawerLayoutActivity" />
+        <activity android:name=".drawerLayout.ui.DrawerLayoutActivity" />
         <activity android:name=".binder.LocalServiceActivity" />
         <activity android:name=".recylerview.BrvahActivity" />
         <activity
@@ -61,7 +61,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity android:name=".bottomsheet.BottomSheetActivity" />
-        <activity android:name=".mvp.ui.TestActivity"></activity>
+        <activity android:name=".mvp.ui.TestActivity" />
+        <activity android:name=".wechatpublish.ui.WeChatPublishActivity"
+            android:launchMode="singleTop"></activity>
+
+        <activity android:name=".wechatpublish.ui.PostImagesActivity"
+            android:launchMode="singleTop"></activity>
     </application>
 
 </manifest>

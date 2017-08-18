@@ -13,10 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.domin.demo01.R;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.R.id.list;
 import static android.R.transition.move;
 
 /**
@@ -30,7 +35,7 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
     private int targetPosition ;
     private boolean isMoved;
     private LinearLayoutManager mLinearLayoutManager;
-
+    private SortBean mSortBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,14 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
     }
 
     private void initData() {
-        String[] classify = getResources().getStringArray(R.array.pill);
-        List<String> list = Arrays.asList(classify);
+        String assetsData = getAssertData("sort.json");
+        Gson gson =new Gson();
+        mSortBean = gson.fromJson(assetsData,SortBean.class);
+        List<SortBean.CategoryOneArrayBean> categoryOneArray  = mSortBean.getCategoryOneArray();
+        List<String> list = new ArrayList<>();
+        for(int i=0;i<categoryOneArray .size();i++){
+            list.add(categoryOneArray.get(i).getName());
+        }
         mSortAdapter = new SortAdapter(mContext, list, new RvListener() {
             @Override
             public void onItemClick(int id, int position) {
@@ -66,6 +77,9 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
     public void createFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         mSortDetailFragment = new SortDetailFragment();
+        Bundle bundle =new Bundle();
+        bundle.putParcelableArrayList("right",mSortBean.getCategoryOneArray());;
+        mSortDetailFragment.setArguments(bundle);
         mSortDetailFragment.setListener(this);
         fragmentTransaction.add(R.id.lin_fragment, mSortDetailFragment);
         fragmentTransaction.commit();
@@ -77,21 +91,32 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
      * @param isLeft
      */
     private void setChecked(int position, boolean isLeft) {
-        mSortAdapter.setCheckedPosition(position);
         if (isLeft) {
-            //向碎片中传值
+
             mSortAdapter.setCheckedPosition(position);
-            mSortDetailFragment.setData(position * 10 + position);
+            //此处的位置需要根据每个分类的集合来进行计算
+            int count = 0;
+            for (int i = 0; i < position; i++) {
+                count += mSortBean.getCategoryOneArray().get(i).getCategoryTwoArray().size();
+            }
+            count += position;
+            //向碎片中传值
+            mSortDetailFragment.setData(count);
         }else{
-            ItemHeaderDecoration.setCurrentTag(String.valueOf(targetPosition));
             if(isMoved){
                 isMoved=false;
             }else {
                 mSortAdapter.setCheckedPosition(position);
             }
+            ItemHeaderDecoration.setCurrentTag(String.valueOf(targetPosition));
         }
         moveToCenter(position);
     }
+
+    /**
+     * 当前选中item居中
+     * @param position
+     */
     private void moveToCenter(int position)
     {
         View childAt =rvSort.getChildAt(position-mLinearLayoutManager.findFirstVisibleItemPosition());
@@ -112,6 +137,22 @@ public class GrandRecylerViewActivity extends AppCompatActivity implements Check
 
     }
 
+    private String getAssertData(String path){
+        String result ="";
+        try{
+            InputStream mAssets = getAssets().open(path);
+            int length = mAssets.available();
+            byte[] buffer =new byte[length];
+            mAssets.read(buffer);
+            mAssets.close();
+            result = new String(buffer);
+            return result;
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return result;
+        }
+    }
     @Override
     public void check(int position, boolean isChecked) {
         //右侧传值左侧动

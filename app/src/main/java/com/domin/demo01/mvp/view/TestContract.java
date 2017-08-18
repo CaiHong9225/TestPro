@@ -16,7 +16,7 @@ public class TestContract {
 
     //mvp中的presenter层的回调函数
     public interface Presenter extends BasePresenter{
-
+        /**获取webdata*/
         void getHttpData();
     }
 }

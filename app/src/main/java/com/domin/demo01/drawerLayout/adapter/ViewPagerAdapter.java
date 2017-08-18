@@ -1,4 +1,4 @@
-package com.domin.demo01.drawerLayout;
+package com.domin.demo01.drawerLayout.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -12,6 +12,8 @@
         android:id="@+id/tv_sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_3"
+        android:paddingRight="@dimen/dp_3"
         android:layout_marginTop="@dimen/dp_6"
         android:gravity="center"
         android:text="测试文字"

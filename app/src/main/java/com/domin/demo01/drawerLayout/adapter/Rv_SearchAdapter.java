@@ -1,4 +1,4 @@
-package com.domin.demo01.drawerLayout;
+package com.domin.demo01.drawerLayout.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by yuepeng on 2017/6/9.
  */
 
-class Rv_SearchAdapter extends RecyclerView.Adapter<Rv_SearchAdapter.ViewHolder> {
+public class Rv_SearchAdapter extends RecyclerView.Adapter<Rv_SearchAdapter.ViewHolder> {
     private final int NORMAL_TYPE = 0;
     private final int FOOT_TYPE = 11111;
     private List<String> mData;//数据

@@ -1,8 +1,6 @@
-package com.domin.demo01.drawerLayout;
+package com.domin.demo01.drawerLayout.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -20,22 +18,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.domin.demo01.BaseActivity;
-import com.domin.demo01.MainActivity;
 import com.domin.demo01.R;
+import com.domin.demo01.drawerLayout.adapter.Rv_SearchAdapter;
+import com.domin.demo01.drawerLayout.adapter.ViewPagerAdapter;
 import com.domin.demo01.jsbridge.JsActivity;
 import com.domin.demo01.utils.SearchUtils;
-import com.domin.demo01.utils.ToastUtils;
+import com.domin.demo01.wechatpublish.ui.WeChatPublishActivity;
 import com.domin.demo01.widget.GangedRecyclerview.GrandRecylerViewActivity;
 
 import java.util.ArrayList;
@@ -72,7 +66,6 @@ public class DrawerAndNaviActivity extends AppCompatActivity implements Navigati
                 if(id==R.id.action_search)
                 {
                     SearchUtils.handleToolBar(getApplicationContext(),mCardViewSearch,mEtSearch,mAppBarLayout);
-
                 }
                 return false;
             }
@@ -121,6 +114,7 @@ public class DrawerAndNaviActivity extends AppCompatActivity implements Navigati
             mData.add("Tab" + i);
             list_fragment.add(DummyFragment.newInstance(i, "1"));
         }
+        mViewPager.setOffscreenPageLimit(19);//不加这个懒加载会销毁未放在内存的fragment
         mFragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), list_fragment, mData);
         mViewPager.setAdapter(mFragmentPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
@@ -130,6 +124,10 @@ public class DrawerAndNaviActivity extends AppCompatActivity implements Navigati
         initResultItem();
         initListener();
     }
+
+    /**
+     * 搜索框
+     */
     private void initResultItem()
     {
         ArrayList<String> list = new ArrayList<>();
@@ -211,7 +209,8 @@ public class DrawerAndNaviActivity extends AppCompatActivity implements Navigati
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Intent intent  =new Intent(this, WeChatPublishActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
             Intent intent  =new Intent(this, GrandRecylerViewActivity.class);
             startActivity(intent);

@@ -18,7 +18,7 @@ public class SortDetailFragment extends BaseFragment<SortDetailPresenter, String
     private RecyclerView mRv;
     private ClassifyDetailAdapter mAdapter;
     private GridLayoutManager mManager;
-    private List<SortBean> mDatas = new ArrayList<>();
+    private List<RightBean> mDatas = new ArrayList<>();
     private ItemHeaderDecoration mDecoration;
     private boolean move = false;
     private int mIndex = 0;
@@ -82,23 +82,30 @@ public class SortDetailFragment extends BaseFragment<SortDetailPresenter, String
         mDecoration = new ItemHeaderDecoration(mContext, mDatas);
         mRv.addItemDecoration(mDecoration);
         mDecoration.setCheckListener(checkListener);
-        initData(mContext.getResources().getStringArray(R.array.pill));
+        initData();
         return new SortDetailPresenter();
     }
 
-    private void initData(final String[] data) {
-        for (int i = 0; i < data.length; i++) {
-            SortBean titleBean = new SortBean(String.valueOf(i));
-            titleBean.setTitle(true);//头部设置为true
-            titleBean.setTag(String.valueOf(i));
-            mDatas.add(titleBean);
-            for (int j = 0; j < 10; j++) {
-                SortBean sortBean = new SortBean(String.valueOf(i + "行" + j + "个"));
-                sortBean.setTag(String.valueOf(i));
-                mDatas.add(sortBean);
+    private void initData() {
+        ArrayList<SortBean.CategoryOneArrayBean> rightList = getArguments().getParcelableArrayList("right");
+        for (int i = 0; i < rightList.size(); i++) {
+            RightBean head = new RightBean(rightList.get(i).getName());
+            //头部设置为true
+            head.setTitle(true);
+            head.setTitleName(rightList.get(i).getName());
+            head.setTag(String.valueOf(i));
+            mDatas.add(head);
+            List<SortBean.CategoryOneArrayBean.CategoryTwoArrayBean> categoryTwoArray = rightList.get(i).getCategoryTwoArray();
+            for (int j = 0; j < categoryTwoArray.size(); j++) {
+                RightBean body = new RightBean(categoryTwoArray.get(j).getName());
+                body.setTag(String.valueOf(i));
+                String name = rightList.get(i).getName();
+                body.setTitleName(name);
+                mDatas.add(body);
             }
 
         }
+
         mAdapter.notifyDataSetChanged();
         mDecoration.setData(mDatas);
     }
@@ -114,10 +121,6 @@ public class SortDetailFragment extends BaseFragment<SortDetailPresenter, String
     }
 
     public void setData(int n) {
-        if (n < 0 || n >= mAdapter.getItemCount()) {
-            Toast.makeText(mContext, "超出范围了", Toast.LENGTH_SHORT).show();
-            return;
-        }
         mIndex = n;
         mRv.stopScroll();
         smoothMoveToPosition(n);

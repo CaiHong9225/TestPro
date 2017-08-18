@@ -100,4 +100,9 @@
     <dimen name="h11">19sp</dimen>
 
     <dimen name="h12">20sp</dimen>
+
+    <dimen name="article_post_et_h">100dp</dimen>
+    <dimen name="article_post_delete">50dp</dimen>
+    <dimen name="article_img_margin_top">10dp</dimen>
+    <dimen name="article_img_dimens">70dp</dimen>
 </resources>

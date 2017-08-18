@@ -1,4 +1,4 @@
-package com.domin.demo01.drawerLayout;
+package com.domin.demo01.drawerLayout.ui;
 
 
 import android.content.Intent;
@@ -6,16 +6,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.domin.demo01.BaseFragment;
@@ -55,13 +50,14 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
     private String mParam2;
     private TextView dummy_tv;
     HRecyclerView recyclerView;
- //   private ArrayList<String> mData = new ArrayList<>();;
+    //   private ArrayList<String> mData = new ArrayList<>();;
     private View view_root;
 
-    private List<Status> mDatas;
+    private List<Status> mDatas = new ArrayList<>();
+    ;
     private final int NORMAL_TYPE = 1;
     private final int ANOTHER_TYPE = 2;
-    private final int LOAD_COMPELERED=1001;
+    private final int LOAD_COMPELERED = 1001;
     private Random mRandom = new Random();
     private int[] type = new int[2];
     private MultiItemTypeSupport<Status> mItemTypeSupport;
@@ -73,8 +69,7 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what)
-            {
+            switch (msg.what) {
                 case 0:
                     refresh(1);
                     recyclerView.setRefreshing(false);
@@ -89,36 +84,23 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
                     mLoadMoreFooterView.setStatus(LoadMoreFooterView.Status.THE_END);
                     break;
                 default:
-                    if(loadMore(count++).size()==0)
-                        mHandler.sendEmptyMessageDelayed(LOAD_COMPELERED,2000);
+                    if (loadMore(count++).size() == 0) {
+                        mHandler.sendEmptyMessageDelayed(LOAD_COMPELERED, 2000);
+                    }
                     mDatas.addAll(loadMore(count++));
-                    mAdapter.notifyItemInserted(mDatas.size()+1);
+                    mAdapter.notifyItemInserted(mDatas.size() + 1);
                     mLoadMoreFooterView.setStatus(LoadMoreFooterView.Status.GONE);
                     break;
             }
         }
     };
+
     public DummyFragment() {
         // Required empty public constructor
     }
-    private void initData(int pager) {
-/*        for (int i = 1; i < 50; i++) {
-            mData.add("pager" + pager + " 第" + i + "个item");
-        }*/
-        type[0] = NORMAL_TYPE;
-        type[1] = ANOTHER_TYPE;
-        mDatas = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            Status status = new Status();
-            status.title = "data :" + pager;
-            status.TYPE = type[getRandomInt()];
-            mDatas.add(status);
-        }
 
-    }
-    private void initView(View view)
-    {
-        recyclerView = (HRecyclerView)view. findViewById(R.id.recylerview);
+    private void initView(View view) {
+        recyclerView = (HRecyclerView) view.findViewById(R.id.recylerview);
 
         //设置RecycleView
 /*        mAdapter = new RecylerViewAdapter(mData,getActivity());
@@ -173,11 +155,12 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
                 ToastUtils.showShortToast("err");
                 loadMore(count++);
                 mDatas.addAll(loadMore(count++));
-                mAdapter.notifyItemInserted(mDatas.size()+1);
+                mAdapter.notifyItemInserted(mDatas.size() + 1);
             }
         });
         recyclerView.setAdapter(mAdapter);
     }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -232,7 +215,7 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
 
     @Override
     public void initViews(View view, Bundle saveInstanState) {
-        recyclerView = (HRecyclerView)view. findViewById(R.id.recylerview);
+        recyclerView = (HRecyclerView) view.findViewById(R.id.recylerview);
     }
 
     @Override
@@ -244,7 +227,6 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
     public void initData() {
         type[0] = NORMAL_TYPE;
         type[1] = ANOTHER_TYPE;
-        mDatas = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             Status status = new Status();
             status.title = "data :" + mParam1;
@@ -292,12 +274,13 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
         mAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder viewHolder, int i) {
-                if(viewHolder.getItemViewType()==NORMAL_TYPE){
+                if (viewHolder.getItemViewType() == NORMAL_TYPE) {
                     //ToastUtils.showShortToast("点击");
                     Snackbar snackbar = Snackbar.make(view, "Click Here", Snackbar.LENGTH_SHORT).setAction("跳转", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startActivity(new Intent(getActivity(), CoordinatorActivity.class));;
+                            startActivity(new Intent(getActivity(), CoordinatorActivity.class));
+                            ;
                         }
                     });
                     View mView = snackbar.getView();
@@ -306,12 +289,13 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
                     text.setTextColor(Color.WHITE);
                     text.setTextSize(25);
                     snackbar.show();
-                }else{
+                } else {
                     //ToastUtils.showShortToast("点击");
                     Snackbar snackbar = Snackbar.make(view, "Click Here", Snackbar.LENGTH_SHORT).setAction("跳转", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            startActivity(new Intent(getActivity(), BottomSheetActivity.class));;
+                            startActivity(new Intent(getActivity(), BottomSheetActivity.class));
+                            ;
                         }
                     });
                     View mView = snackbar.getView();
@@ -331,7 +315,7 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
                 ToastUtils.showShortToast("err");
                 loadMore(count++);
                 mDatas.addAll(loadMore(count++));
-                mAdapter.notifyItemInserted(mDatas.size()+1);
+                mAdapter.notifyItemInserted(mDatas.size() + 1);
             }
         });
         recyclerView.setAdapter(mAdapter);
@@ -345,7 +329,7 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
     @Override
     protected void onInvisible() {
         super.onInvisible();
-//        initData();
+        //        initData();
     }
 
     private List<Status> refresh(int i) {
@@ -361,6 +345,7 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
         mAdapter.notifyDataSetChanged();
         return more_list;
     }
+
     private List<Status> loadMore(int i) {
         List<Status> more_list = new ArrayList<>();
         for (int m = 0; m < 5; m++) {
@@ -371,6 +356,7 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
         }
         return more_list;
     }
+
     @Override
     public void onLoadMore() {
         if (mLoadMoreFooterView.canLoadMore()) {
@@ -385,6 +371,6 @@ public class DummyFragment extends BaseFragment implements OnLoadMoreListener, O
     public void onRefresh() {
         Message message = Message.obtain();
         message.what = 0;
-        mHandler.sendMessageDelayed(message,2000);
+        mHandler.sendMessageDelayed(message, 2000);
     }
 }
