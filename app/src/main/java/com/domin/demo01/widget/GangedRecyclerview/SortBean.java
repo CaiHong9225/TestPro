@@ -32,6 +32,7 @@ public class SortBean implements Parcelable {
     public String getTitle() {
         return title;
     }
+
     public String getTitleName() {
         return titleName;
     }
@@ -39,12 +40,12 @@ public class SortBean implements Parcelable {
     public void setTitleName(String titleName) {
         this.titleName = titleName;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     private String title;
-
 
 
     public String getImgsrc() {

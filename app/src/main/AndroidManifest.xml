@@ -62,11 +62,14 @@
             android:screenOrientation="portrait" />
         <activity android:name=".bottomsheet.BottomSheetActivity" />
         <activity android:name=".mvp.ui.TestActivity" />
-        <activity android:name=".wechatpublish.ui.WeChatPublishActivity"
-            android:launchMode="singleTop"></activity>
-
-        <activity android:name=".wechatpublish.ui.PostImagesActivity"
-            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".wechatpublish.ui.WeChatPublishActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".wechatpublish.ui.PostImagesActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".rxjava.RxSubjectActivity" />
+        <activity android:name=".rxjava.OperatorActivity"></activity>
     </application>
 
 </manifest>

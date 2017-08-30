@@ -62,11 +62,16 @@ public class MyCallBack extends ItemTouchHelper.Callback {
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         int fromPosition = viewHolder.getAdapterPosition();//得到item原来的position
         int toPosition = target.getAdapterPosition();//得到目标position
+        //同一位置
         if (toPosition == images.size() - 1 || images.size() - 1 == fromPosition) {
             return true;
         }
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
+                //2   3   4   5
+                //3   2   4   5
+                //3   4   2   5
+                //3   4   5   2
                 Collections.swap(images, i, i + 1);
                 Collections.swap(originImages, i, i + 1);
             }
@@ -140,7 +145,7 @@ public class MyCallBack extends ItemTouchHelper.Callback {
         if (null == dragListener) {
             return;
         }
-
+            //dy下滑 recylerview高度-item到recyler顶部高度-底部textview高度
         if (dY >= (recyclerView.getHeight()
                 - viewHolder.itemView.getBottom()//item底部距离recyclerView顶部高度
                 - CommonUtils.getPixelById(R.dimen.article_post_delete))) {//拖到删除处
